@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vkifi</title>
+    <script type="module" src="/main.js" defer></script>
+    <style>
+      .logo.vanilla:hover {
+        filter: drop-shadow(0 0 2em #ffe21c);
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>vkifi</h1>
+
+    <div class="container hidden" id="navbar">
+      <li class="navbar">
+        <a class="navbar-link">Information</a>
+        <a class="navbar-link">Actions</a>
+      </li>
+    </div>
+
+    <div class="container" id="init">
+      <form class="row" id="fetch-dir">
+        <input id="path" placeholder="Enter path to repository" />
+        <button type="submit">Select Repository</button>
+      </form>
+    </div>
+
+    <div class="container hidden" id="info">
+      <form id="info-form">
+        <button id="get-info">Info</button>
+        <button id="get-preview">Preview</button>
+      </form>
+    </div>
+
+    <div class="container">
+      <textarea class="output" id="output" disabled></textarea>
+    </div>
+  </body>
+</html>
