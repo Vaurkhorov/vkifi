@@ -11,7 +11,11 @@ let states = Object.freeze({
   // revert: "revert",
   // register: "register",
 });
+
 let currentState = states.init;
+let repoPath = null;
+let pathElement;
+let outputElement;
 
 function updateState(state) {
   // navbar is only hidden before the repository is initialised/selected
@@ -26,11 +30,6 @@ function updateState(state) {
   document.querySelector("#" + currentState).classList.remove("hidden");
 }
 
-let repoPath = null;
-
-let pathElement;
-let outputElement;
-
 window.addEventListener("DOMContentLoaded", () => {
   pathElement = document.querySelector("#path");
   outputElement = document.querySelector("#output");
@@ -40,8 +39,6 @@ window.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     
     let returned_path = await checkKifi(outputElement, pathElement);
-    console.log(returned_path !== null);
-    console.log(returned_path);
     if (returned_path !== repoPath && returned_path !== null) {
       repoPath = returned_path;
       updateState(states.info);

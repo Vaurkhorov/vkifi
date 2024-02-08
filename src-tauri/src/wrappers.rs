@@ -1,6 +1,6 @@
 use kifi::{commands, output::{DebugOutput, Output}};
 use std::path::PathBuf;
-
+use crate::ansi::strip_ansi;
 
 // macro_rules! command {
 //     ($($function:ident($($arg:ident : $arg_ty:ty),*)),*) => {
@@ -114,10 +114,12 @@ pub fn track(file_name: String, forced: bool, path: String) -> Result<String, St
 pub fn preview(path: String) -> Result<String, String> {
     let mut output = DebugOutput::new();
     match commands::preview(&mut output, Some(PathBuf::from(path))) {
-        Ok(()) => match output.print() {
-            Some(output_vector) => Ok(output_vector.join("\n")),
-            None => Ok(String::new()),
-        },
+        Ok(()) => Ok(match output.print() {
+            Some(output_vector) => {
+                strip_ansi(output_vector.join("\n"))
+            },
+            None => String::new(),
+        }),
         Err(e) => {
             let mut output = DebugOutput::new();
             e.handle(&mut output);
@@ -131,10 +133,10 @@ pub fn preview(path: String) -> Result<String, String> {
 }
 
 #[tauri::command]
-pub fn snapshot(path: String) -> String {
+pub fn snapshot(path: String) -> Result<String, String> {
     match commands::snapshot(Some(PathBuf::from(path))) {
         Ok(()) => {
-            String::from("Snapshot created")
+            Ok(String::from("Snapshot created"))
         }
         Err(e) => {
             let mut output = DebugOutput::new();
@@ -143,20 +145,20 @@ pub fn snapshot(path: String) -> String {
                 Some(lines) => lines.join("\n"),
                 None => String::new(),
             };
-            format!("Error: {:#?}", output_string)
+            Err(format!("Error: {:#?}", output_string))
         }
     }
 }
 
 #[tauri::command]
-pub fn log(path: String) -> String {
+pub fn log(path: String) -> Result<String, String> {
     let mut output = DebugOutput::new();
     match commands::log(&mut output, Some(PathBuf::from(&path))) {
         Ok(()) => {
-            match output.print() {
+            Ok(match output.print() {
                 Some(output_vector) => output_vector.join("\n"),
                 None => String::new(),
-            }
+            })
         }
         Err(e) => {
             let mut output = DebugOutput::new();
@@ -165,17 +167,17 @@ pub fn log(path: String) -> String {
                 Some(lines) => lines.join("\n"),
                 None => String::new(),
             };
-            format!("Error: {:#?}", output_string)
+            Err(format!("Error: {:#?}", output_string))
         }
     }
 }
 
 #[tauri::command]
-pub fn revert(name: String, path: String) -> String {
+pub fn revert(name: String, path: String) -> Result<String, String> {
     let mut output = DebugOutput::new();
     match commands::revert(&mut output, name, Some(PathBuf::from(path))) {
         Ok(()) => {
-            String::from("Reverted to last snapshot")
+            Ok(String::from("Reverted to last snapshot"))
         }
         Err(e) => {
             let mut output = DebugOutput::new();
@@ -184,16 +186,16 @@ pub fn revert(name: String, path: String) -> String {
                 Some(lines) => lines.join("\n"),
                 None => String::new(),
             };
-            format!("Error: {:#?}", output_string)
+            Err(format!("Error: {:#?}", output_string))
         }
     }
 }
 
 #[tauri::command]
-pub fn register(name: String, email: String) -> String {
+pub fn register(name: String, email: String) -> Result<String, String> {
     match commands::register(&name, &email) {
         Ok(()) => {
-            String::from("Registered")
+            Ok(String::from("Registered"))
         }
         Err(e) => {
             let mut output = DebugOutput::new();
@@ -202,7 +204,7 @@ pub fn register(name: String, email: String) -> String {
                 Some(lines) => lines.join("\n"),
                 None => String::new(),
             };
-            format!("Error: {:#?}", output_string)
+            Err(format!("Error: {:#?}", output_string))
         }
     }
 }

@@ -1505,9 +1505,9 @@ dependencies = [
 
 [[package]]
 name = "kifi"
-version = "0.4.9-alpha"
+version = "0.4.10-alpha"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6cf719cbfc0eaf116d8c9d1e79467241e95a34a1042da9ea3bc39223bfce4d98"
+checksum = "7a604d30e50ab68eefc4379a96ec269b0ff701974c62101c76a1e2613888b6b4"
 dependencies = [
  "clap",
  "dirs",
