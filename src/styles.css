@@ -60,18 +60,19 @@
 
 .navbar-link {
   float: left;
-}
-
-.navbar-link a {
+  border-width: 2px;
+  border-color: whitesmoke;
+  border-style: solid;
+  padding: 2vh;
   display: block;
   color: white;
   text-align: center;
-  padding: 14px 16px;
   text-decoration: none;
 }
 
-.navbar-link a:hover {
-  background-color: #24c8db;
+.navbar-link:hover {
+  background-color: darkslateblue;
+  cursor: pointer;
 }
 
 .navbar-active {
