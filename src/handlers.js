@@ -38,3 +38,15 @@ export async function meta(outputElement, repoPath) {
             outputElement.textContent = "Error while getting metadata from " + repoPath + ":\n" + err;
         });
 }
+
+export async function log(outputElement, repoPath) {
+    await invoke('log', { path: repoPath })
+        .then(result => {
+            if (result) {
+                outputElement.textContent = result;
+            }
+        })
+        .catch(err => {
+            outputElement.textContent = "Error while getting logs from " + repoPath + ":\n" + err;
+        });
+}

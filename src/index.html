@@ -34,11 +34,23 @@
       <form id="info-form">
         <button id="get-info">Info</button>
         <button id="get-preview">Preview</button>
+        <button id="get-log">Log</button>
       </form>
     </div>
 
-    <div class="container">
-      <textarea class="output" id="output" disabled></textarea>
+    <div class="container hidden" id="action">
+      <form id="info-form">
+        <button id="get-info">Info</button>
+      </form>
+    </div>
+
+    <div class="output-box">
+      <div class="old-output">
+        <textarea class="output" id="output-log" disabled></textarea>
+      </div>
+      <div class="current-output">
+        <textarea class="output" id="output" disabled></textarea>
+      </div>
     </div>
   </body>
 </html>

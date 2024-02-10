@@ -35,21 +35,6 @@
   justify-content: center;
 }
 
-.output {
-  position: -webkit-sticky;
-  position: sticky;
-  position: absolute;
-  align-self: center;
-  bottom: 0;
-  height: 15em;
-  width: 90%;
-  margin: 1em;
-  background-color: darkslateblue;
-  color: whitesmoke;
-
-}
-
-
 .navbar {
   list-style-type: none;
   margin: 0;
@@ -77,6 +62,34 @@
 
 .navbar-active {
   background-color: darkslateblue;
+}
+
+
+.output-box {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  /* align-items: right;   */
+}
+
+.old-output {
+  flex: 2.5;
+  display: flex;
+  justify-content: center;
+}
+
+.current-output {
+  flex: 7.5;
+  display: flex;
+  justify-content: center;
+}
+
+.output {
+  height: 15em;
+  width: 100%;
+  margin: 0.5vh;
+  background-color: darkslateblue;
+  color: whitesmoke;
 }
 
 a {
